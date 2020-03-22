@@ -8,10 +8,10 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import useToggleState from './hooks/useToggleState';
 import TodoEditForm from './TodoEditForm';
-import { TodosContext } from './context/todos.context';
+import { DispatchContext } from './context/todos.context';
 
 export default function TodoListItem({ id, task, completed }) {
-  const { dispatch } = useContext(TodosContext);
+  const dispatch = useContext(DispatchContext);
   const [isEditing, toggleEdit] = useToggleState(false);
 
   return (
