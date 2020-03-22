@@ -1,6 +1,7 @@
-import React, { createContext, useReducer } from 'react';
+import React, { createContext } from 'react';
 import { v4 as uuid } from 'uuid';
 import useTodoState from '../hooks/useTodoState';
+import useLocalStorageReducer from '../hooks/useLocalStorageReducer';
 const initTodos = [{ id: 0, task: 'Add your todo', completed: false }];
 
 const todosReducer = (state, action) => {
@@ -26,7 +27,11 @@ export const TodosContext = createContext();
 export const DispatchContext = createContext();
 
 export function TodosProvider(props) {
-  const [todos, dispatch] = useReducer(todosReducer, initTodos);
+  const [todos, dispatch] = useLocalStorageReducer(
+    'todos',
+    initTodos,
+    todosReducer
+  );
   //const todosBundle = useTodoState(initTodos);
 
   return (
