@@ -11,7 +11,7 @@ import TodoEditForm from './TodoEditForm';
 import { TodosContext } from './context/todos.context';
 
 export default function TodoListItem({ id, task, completed }) {
-  const { removeTodo, toggleTodo } = useContext(TodosContext);
+  const { dispatch } = useContext(TodosContext);
   const [isEditing, toggleEdit] = useToggleState(false);
 
   return (
@@ -23,7 +23,7 @@ export default function TodoListItem({ id, task, completed }) {
           <Checkbox
             checked={completed}
             tabIndex={-1}
-            onClick={() => toggleTodo(id)}
+            onClick={() => dispatch({ type: 'TOGGLE_TODO', id })}
           />
           <ListItemText
             style={{ textDecoration: completed ? 'line-through' : '' }}
@@ -31,7 +31,10 @@ export default function TodoListItem({ id, task, completed }) {
             {task}
           </ListItemText>
           <ListItemSecondaryAction>
-            <IconButton aria-label="delete" onClick={() => removeTodo(id)}>
+            <IconButton
+              aria-label="delete"
+              onClick={() => dispatch({ type: 'REMOVE_TODO', id })}
+            >
               <DeleteIcon />
             </IconButton>
             <IconButton aria-label="edit" onClick={toggleEdit}>

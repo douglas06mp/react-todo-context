@@ -4,11 +4,11 @@ import useInputState from './hooks/useInputState';
 import { TodosContext } from './context/todos.context';
 
 export default function TodoEditForm({ id, task, toggleEdit }) {
-  const { editTodo } = useContext(TodosContext);
+  const { dispatch } = useContext(TodosContext);
   const [value, handleChange, reset] = useInputState(task);
   const handleSubmit = e => {
     e.preventDefault();
-    editTodo(id, value);
+    dispatch({ type: 'EDIT_TODO', id, newTask: value });
     reset();
     toggleEdit();
   };
